@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 
@@ -9,7 +11,7 @@ from django.db import models
 
 class Funcionario(models.Model):
 
-    funcionario_id = models.CharField(primary_key=True, default='', max_length=10, unique=True)
+    funcionario_id = models.AutoField(primary_key=True, unique=True, editable=False)
     funcionario_nome = models.CharField(max_length=150, default='')
     funcionario_data_nascimento = models.DateField(max_length=10, default='')
     funcionario_endereco = models.CharField(max_length=150, default='')
@@ -17,4 +19,4 @@ class Funcionario(models.Model):
     funcionario_ec = models.CharField(max_length=50, default='')
 
     def __str__(self):
-        return f'Nome: {self.funcionario_nome} | CPF: {self.funcionario_cpf}'
+        return f'Nome: {self.funcionario_nome} | CPF: {self.funcionario_cpf} | ID: {self.funcionario_id}'
