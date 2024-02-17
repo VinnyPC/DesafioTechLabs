@@ -8,7 +8,7 @@ API Django para gerenciar informações de funcionários. A API é capaz de regi
 | :-------- | :------- | :------------------------- |
 | `funcionario_id` | `int AI PK` | Chave primária autoincrementada |
 | `funcionario_nome` | `varchar(150)` | Nome do funcionário |
-| `funcionario_data_nascimento` | `date` | Data de nascimento do funcionário |
+| `funcionario_data_nascimento` | `date` | Data de nascimento do funcionário (yyyy-mm-dd) |
 | `funcionario_endereco` | `varchar(150)` | Endereço do funcionário |
 | `funcionario_cpf` | `varchar(12)` | CPF do funcionário (11 números) |
 | `funcionario_ec` | `varchar(50)` | Estado civil do funcionário |
@@ -40,7 +40,7 @@ Retorna informações sobre sobre os funcionários específicos com base no nome
 Adiciona um novo funcionário. Requer um payload com os dados do funcionário. O ID não é necessário.
 
 ```http
-  POST /funcionarios/data/
+  POST /funcionarios/add
 ```
 
 
@@ -48,7 +48,7 @@ Adiciona um novo funcionário. Requer um payload com os dados do funcionário. O
 #### Editar registro
 
 ```http
-  PUT /funcionarios/data/
+  PUT /funcionarios/update
 ```
 
 Atualiza as informações de um funcionário existente. Requer um payload com o ID e algum dado atualizado.
@@ -61,7 +61,7 @@ Atualiza as informações de um funcionário existente. Requer um payload com o 
 Exclui um funcionário com base no ID fornecido. Requer um payload com o ID do funcionário.
 
 ```http
-  DELETE /funcionarios/data/
+  DELETE /funcionarios/delete
 ```
 ```JSON
 {
