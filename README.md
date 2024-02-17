@@ -78,5 +78,10 @@ Exclui um funcionário com base no ID fornecido. Requer um payload com o ID do f
 + MySQL Workbench
 + Insomnia
 
+## Links:
 
++ [Documentação Django](https://docs.djangoproject.com/en/5.0/intro/tutorial08/)
++ [Documentação Django Databases](https://docs.djangoproject.com/en/5.0/ref/databases/#mysqlclient)
++ [Documentação Python](https://docs.python.org/pt-br/3/tutorial/)
++ [DescolaDev - Gabriel Freitas](https://www.youtube.com/@DescolaDev)
 
