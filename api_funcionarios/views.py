@@ -8,6 +8,8 @@ from rest_framework import status
 from .models import Funcionario
 from .serializers import FuncionarioSerializer
 
+from . import functions as functions
+
 import json
 
 
@@ -63,8 +65,16 @@ def gerencia_funcionario(request):
         else:
             return Response({'error': 'ID do funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
 
+    elif request.method == 'DELETE':
+        funcionario_id = request.data.get('funcionario_id')
+        if funcionario_id is not None:
+            try:
+                funcionario_delete = Funcionario.objects.get(pk=funcionario_id)
+                funcionario_delete.delete()
+                return Response(status=status.HTTP_202_ACCEPTED)
+            except Funcionario.DoesNotExist:
+                return Response({'error': 'Funcionário não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'error': 'ID do funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
+
     return Response({'error': 'Método HTTP não suportado.'}, status=status.HTTP_400_BAD_REQUEST)
-
-    if request.method == 'DELETE':
-
-        
