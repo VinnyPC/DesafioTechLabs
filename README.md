@@ -54,7 +54,7 @@ Adiciona um novo funcionário. Requer um payload com os dados do funcionário. O
 Atualiza as informações de um funcionário existente. Requer um payload com o ID e algum dado atualizado.
 
 
-💡 Lembre-se de que o CPF deve conter exatamente 11 dígitos numéricos e a data de nascimento deve ser no formato yyyy-mm-aa, ambos sem a presença de letras. Em caso contrário, a requisição resultará em um erro 404 Bad Request, acompanhado de informações sobre o erro.
+💡 Lembre-se de que o CPF deve conter exatamente 11 dígitos numéricos e a data de nascimento deve ser no formato yyyy-mm-dd, ambos sem a presença de letras. Em caso contrário, a requisição resultará em um erro 404 Bad Request, acompanhado de informações sobre o erro.
 #
 #### Deletar registro
 
