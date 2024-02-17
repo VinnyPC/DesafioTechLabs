@@ -44,8 +44,11 @@ def gerencia_funcionario(request):
         serializer = FuncionarioSerializer(data=novo_funcionario)
 
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            if functions.validaCPF(novo_funcionario.get('funcionario_cpf')):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error': 'CPF deve ter 11 digitos e não deve ter letras'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'Usuário não é válido'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -58,6 +61,13 @@ def gerencia_funcionario(request):
                 return Response({'error': 'Funcionário não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
             serializer = FuncionarioSerializer(funcionario_atualizado, data=request.data)
             if serializer.is_valid():
+                cpf_atualizado = request.data.get('funcionario_cpf')
+                if functions.validaCPF(cpf_atualizado):
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                else:
+                    return Response({'error': 'CPF deve ter 11 digitos e não deve ter letras'},
+                                    status=status.HTTP_400_BAD_REQUEST)
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
             else:
