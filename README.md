@@ -7,11 +7,11 @@ API Django para gerenciar informações de funcionários. A API é capaz de regi
 | Nome | Tipo     | Descrição                |
 | :-------- | :------- | :------------------------- |
 | `funcionario_id` | `int AI PK` | Chave primária autoincrementada |
-| `funcionario_nome` | `varchar(150)` | Nome do funcionário |
+| `funcionario_nome` | `varchar(150)` | Nome do funcionário (Apenas letras) |
 | `funcionario_data_nascimento` | `date` | Data de nascimento do funcionário (yyyy-mm-dd) |
 | `funcionario_endereco` | `varchar(150)` | Endereço do funcionário |
 | `funcionario_cpf` | `varchar(12)` | CPF do funcionário (11 números) |
-| `funcionario_ec` | `varchar(50)` | Estado civil do funcionário |
+| `funcionario_ec` | `varchar(50)` | Estado civil do funcionário (Apenas letras)|
 
 # Endpoints
 
