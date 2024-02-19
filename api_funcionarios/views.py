@@ -21,7 +21,7 @@ def get_funcionarios(request):
         serializer = FuncionarioSerializer(funcionarios, many=True)
         return Response(serializer.data)
 
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    return Response({'Erro': 'Método HTTP não suportado.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['GET'])
@@ -29,13 +29,13 @@ def get_by_nome(request, nome):
     try:
         funcionario = Funcionario.objects.get(funcionario_nome=nome)
     except Funcionario.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'Erro': 'Funcionário não encontrado, verifique as informações'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = FuncionarioSerializer(funcionario)
         return Response(serializer.data)
 
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+    return Response({'Erro': 'Método HTTP não suportado.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['POST'])
@@ -50,7 +50,7 @@ def cria_funcionario(request):
         else:
             return Response({'Erro': 'Algum campo inválido ou cadastro já existente!'}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({'error': 'Método HTTP não suportado.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Erro': 'Método HTTP não suportado.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 @api_view(['PUT'])
 def atualiza_funcionario(request):
     if request.method == 'PUT':
@@ -78,9 +78,9 @@ def atualiza_funcionario(request):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error': 'ID do funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Erro': 'ID do funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({'error': 'Método HTTP não suportado.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Erro': 'Método HTTP não suportado.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['DELETE'])
@@ -93,8 +93,8 @@ def delete_funcionario(request):
                 funcionario_delete.delete()
                 return Response(status=status.HTTP_202_ACCEPTED)
             except Funcionario.DoesNotExist:
-                return Response({'error': 'Funcionário não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'Erro': 'Funcionário não encontrado'}, status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response({'error': 'ID do funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Erro': 'ID do Funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({'error': 'Método HTTP não suportado.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'Erro': 'Método HTTP não suportado.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
