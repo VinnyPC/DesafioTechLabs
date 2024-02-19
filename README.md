@@ -15,7 +15,7 @@ API Django para gerenciar informações de funcionários. A API é capaz de regi
 
 # Endpoints
 
-#### Buscar todos os funcionários
+### 📄 Buscar todos os funcionários
 
 Retorna uma lista de todos os funcionários.
 
@@ -24,7 +24,7 @@ Retorna uma lista de todos os funcionários.
 ```
 
 #
-#### Buscar funcionário por nome
+### 🔍 Buscar funcionário por nome
 
 Retorna informações sobre sobre os funcionários específicos com base no nome fornecido.
 
@@ -35,7 +35,7 @@ Retorna informações sobre sobre os funcionários específicos com base no nome
 
 
 #
-#### Criar registro de funcionário
+### 📝 Criar registro de funcionário
 
 Adiciona um novo funcionário. Requer um payload com os dados do funcionário. O ID não é necessário.
 
@@ -45,7 +45,7 @@ Adiciona um novo funcionário. Requer um payload com os dados do funcionário. O
 
 
 #
-#### Editar registro
+### ✏️ Editar registro
 
 ```http
   PUT /funcionarios/update
@@ -56,7 +56,7 @@ Atualiza as informações de um funcionário existente. Requer um payload com o 
 
 💡 Lembre-se de que o CPF deve conter exatamente 11 dígitos numéricos e a data de nascimento deve ser no formato yyyy-mm-dd, ambos sem a presença de letras. Em caso contrário, a requisição resultará em um erro 404 Bad Request, acompanhado de informações sobre o erro.
 #
-#### Deletar registro
+### 🗑️ Deletar registro
 
 Exclui um funcionário com base no ID fornecido. Requer um payload com o ID do funcionário.
 
