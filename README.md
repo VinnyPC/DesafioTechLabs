@@ -8,14 +8,14 @@ API Django para gerenciar informações de funcionários. A API é capaz de regi
 | :-------- | :------- | :------------------------- |
 | `funcionario_id` | `int AI PK` | Chave primária autoincrementada |
 | `funcionario_nome` | `varchar(150)` | Nome do funcionário |
-| `funcionario_data_nascimento` | `date` | Data de nascimento do funcionário |
+| `funcionario_data_nascimento` | `date` | Data de nascimento do funcionário (yyyy-mm-dd) |
 | `funcionario_endereco` | `varchar(150)` | Endereço do funcionário |
 | `funcionario_cpf` | `varchar(12)` | CPF do funcionário (11 números) |
 | `funcionario_ec` | `varchar(50)` | Estado civil do funcionário |
 
 # Endpoints
 
-#### Buscar todos os funcionários
+### 📄 Buscar todos os funcionários
 
 Retorna uma lista de todos os funcionários.
 
@@ -24,7 +24,7 @@ Retorna uma lista de todos os funcionários.
 ```
 
 #
-#### Buscar funcionário por nome
+### 🔍 Buscar funcionário por nome
 
 Retorna informações sobre sobre os funcionários específicos com base no nome fornecido.
 
@@ -35,33 +35,33 @@ Retorna informações sobre sobre os funcionários específicos com base no nome
 
 
 #
-#### Criar registro de funcionário
+### 📝 Criar registro de funcionário
 
 Adiciona um novo funcionário. Requer um payload com os dados do funcionário. O ID não é necessário.
 
 ```http
-  POST /funcionarios/data/
+  POST /funcionarios/add
 ```
 
 
 #
-#### Editar registro
+### ✏️ Editar registro
 
 ```http
-  PUT /funcionarios/data/
+  PUT /funcionarios/update
 ```
 
 Atualiza as informações de um funcionário existente. Requer um payload com o ID e algum dado atualizado.
 
 
-💡 Lembre-se de que o CPF deve conter exatamente 11 dígitos numéricos, sem a presença de letras. Em caso contrário, a requisição resultará em um erro 404 Bad Request, acompanhado de informações sobre o erro.
+💡 Lembre-se de que o CPF deve conter exatamente 11 dígitos numéricos e a data de nascimento deve ser no formato yyyy-mm-dd, ambos sem a presença de letras. Em caso contrário, a requisição resultará em um erro 404 Bad Request, acompanhado de informações sobre o erro.
 #
-#### Deletar registro
+### 🗑️ Deletar registro
 
 Exclui um funcionário com base no ID fornecido. Requer um payload com o ID do funcionário.
 
 ```http
-  DELETE /funcionarios/data/
+  DELETE /funcionarios/delete
 ```
 ```JSON
 {
