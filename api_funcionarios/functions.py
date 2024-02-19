@@ -2,7 +2,7 @@ from .models import Funcionario
 import re
 from datetime import datetime
 
-def validaFuncionario(cpf, data_nascimento):
+def validaFuncionario(cpf, data_nascimento, nome, ec):
     def validaCPF(cpf):
         cpf_numerico = re.sub(r'\D', '', cpf)
         return len(cpf_numerico) == 11
@@ -13,4 +13,12 @@ def validaFuncionario(cpf, data_nascimento):
             return True
         except ValueError:
             return False
-    return validaCPF(cpf) and validaDataNascimento(data_nascimento)
+
+    def validaNome(nome):
+        return not any(char.isdigit() for char in nome)
+
+    def validaEc(ec):
+        return not any(char.isdigit() for char in ec)
+
+    return validaCPF(cpf) and validaDataNascimento(data_nascimento) and validaNome(nome) and validaEc(ec)
+

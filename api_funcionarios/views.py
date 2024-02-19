@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 
 from rest_framework.decorators import api_view
@@ -38,19 +38,17 @@ def get_by_nome(request, nome):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-#@api_view(['GET', 'POST', 'PUT', 'DELETE'])
-
 @api_view(['POST'])
 def cria_funcionario(request):
     if request.method == 'POST':
         novo_funcionario = request.data
         serializer = FuncionarioSerializer(data=novo_funcionario)
 
-        if serializer.is_valid() and validaFuncionario(novo_funcionario.get('funcionario_cpf'), novo_funcionario.get('funcionario_data_nascimento')):
+        if serializer.is_valid() and validaFuncionario(novo_funcionario.get('funcionario_cpf'), novo_funcionario.get('funcionario_data_nascimento'), novo_funcionario.get('funcionario_nome'), novo_funcionario.get('funcionario_ec')):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response({'error': 'CPF deve ter 11 dígitos e não deve conter letras ou a data de nascimento é inválida.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'Erro': 'Algum campo inválido ou cadastro já existente!'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Método HTTP não suportado.'}, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['PUT'])
@@ -66,12 +64,15 @@ def atualiza_funcionario(request):
             if serializer.is_valid():
                 cpf_atualizado = request.data.get('funcionario_cpf')
                 dataNascimento_atualizada = request.data.get('funcionario_data_nascimento')
-                if functions.validaFuncionario(cpf_atualizado, dataNascimento_atualizada):
+                nome_atualizado = request.data.get('funcionario_nome')
+                endereco_atualizado = request.data.get('funcionario_endereco')
+                ec_atualizado = request.data.get('funcionario_ec')
+
+                if functions.validaFuncionario(cpf_atualizado, dataNascimento_atualizada, nome_atualizado, ec_atualizado):
                     serializer.save()
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 else:
-                    return Response({'error': 'CPF deve ter 11 digitos e não deve ter letras'},
-                                    status=status.HTTP_400_BAD_REQUEST)
+                    return Response({'Erro': 'Algum campo inválido!'},  status=status.HTTP_400_BAD_REQUEST)
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
             else:
@@ -80,6 +81,8 @@ def atualiza_funcionario(request):
             return Response({'error': 'ID do funcionário não fornecido.'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'Método HTTP não suportado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['DELETE'])
 def delete_funcionario(request):
     if request.method == 'DELETE':
